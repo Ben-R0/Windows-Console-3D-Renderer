@@ -8,7 +8,7 @@ A 3D renderer using Windows handles to draw character on the console screen and 
 
 ___________________________________________________________________________________________________
 
-*C++
+* C++
 
 ___________________________________________________________________________________________________
 
@@ -18,25 +18,25 @@ ________________________________________________________________________________
 
 ___________________________________________________________________________________________________
 
-*3D rendering of an object depicting its edges and verticies.
-*Full support for object and camera rotation.
-*Camera manipulation using keyboard shortcuts.
+* 3D rendering of an object depicting its edges and verticies.
+* Full support for object and camera rotation.
+* Camera manipulation using keyboard shortcuts.
 
 ___________________________________________________________________________________________________
 
 
 
-#🎹Keyboard Shortcuts
+# 🎹Keyboard Shortcuts
 
 ___________________________________________________________________________________________________
 
-*W: Throttle Up
-*S: Throttle Down
-*A: Rotate Camera Left
-*D: Rotate Camera Right
-*Q: Zoom In (FOV Down)
-*E: Zoom Out (FOV Up)
-*H: Full Stop (Throttle = 0)
+* W: Throttle Up
+* S: Throttle Down
+* A: Rotate Camera Left
+* D: Rotate Camera Right
+* Q: Zoom In (FOV Down)
+* E: Zoom Out (FOV Up)
+* H: Full Stop (Throttle = 0)
 
 ___________________________________________________________________________________________________
 
