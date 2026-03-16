@@ -1,6 +1,6 @@
 ## 3D Windows Console Renderer
 
-A 3D renderer using Windows handles to draw character on the console screen and visualize objects. 
+A 3D renderer using Windows handles to draw a wide character on the console screen and visualize objects. 
 
 ___________________________________________________________________________________________________
 
@@ -61,9 +61,5 @@ ________________________________________________________________________________
 # 🎯Future Goals
 
 At the project's onset, I used the the parametretic equation for a 3D line to quickly develop an intuitive line drawing method, but the Bresenham algorithm would be a more efficient replacement.
+
 In the longer term, shading of 3D faces or direct reading from .obj files would strengthen the project's scope.
-
-
-___________________________________________________________________________________________________
-
-
