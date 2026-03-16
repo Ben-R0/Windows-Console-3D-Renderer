@@ -5,7 +5,7 @@ A 3D renderer using Windows handles to draw a wide character on the console scre
 ___________________________________________________________________________________________________
 
 
-## 📦Technologies
+## 📦 Technologies
 
 * C++
 
@@ -13,7 +13,7 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________
 
 
-## 🌌Features
+## 🌌 Features
 
 * 3D rendering of an object depicting its edges and verticies.
 * Full support for object and camera rotation.
@@ -23,7 +23,7 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________
 
 
-## 🎹Keyboard Shortcuts
+## 🎹 Keyboard Shortcuts
 
 * W: Throttle Up
 * S: Throttle Down
@@ -37,7 +37,7 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________
 
 
-## 👨‍🍳The Process
+## 👨‍🍳 The Process
 
 I started by studying existing projects on console rendering, and found a 3D console game engine which used a Windows handle to write a wide character type across the whole screen for visualization of a scene.
 Working from this, I applied what I remember from multivariable calculus to create a basic rendering pipeline to depict a single scene of a fixed object given a fixed camera.
@@ -58,7 +58,7 @@ ________________________________________________________________________________
 
 
 
-## 🎯Future Goals
+## 🎯 Future Goals
 
 At the project's onset, I used the the parametretic equation for a 3D line to quickly develop an intuitive line drawing method, but the Bresenham algorithm would be a more efficient replacement.
 
