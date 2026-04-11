@@ -45,7 +45,7 @@ Here's one of the early renders right after I nailed down edge visualization:
 
 
 I then did some research into linear algebra concepts to develop a matrix struct with a variety of operator overloads to create an easier pipeline leading into rotation.
-After applying these principles and creating static factories for the rotation matrices, I was able to produce a rotation system for both the object and the camera.
+After applying these principles and creating static factories for the rotation matrices, I was able to produce a rotation system for both the object and the camera. Here's a demonstration of the rotation system for a cube:
 
 ![Rotating Cube](https://github.com/user-attachments/assets/d61c7deb-397e-4876-80cc-9d9582c11215)
 
@@ -55,6 +55,8 @@ After applying these principles and creating static factories for the rotation m
 
 ## 🎯 Future Goals
 
-At the project's onset, I used the the parametretic equation for a 3D line to quickly develop an intuitive line drawing method, but the Bresenham algorithm would be a more efficient replacement.
+At the project's onset, I used the the parametretic equation for a 3D line to quickly develop an intuitive line drawing method, but the Bresenham algorithm would be a more efficient replacement. I opted to currently disclude some features like faces due to the nature of the rendering environment (these don't always look great in the console), but it could be worth implementing these features to experience the associated technical challenged.
 
-In the longer term, shading of 3D faces or direct reading from .obj files would strengthen the project's scope.
+In the longer term, reading image files to shade 3D faces or direct reading from .obj files would definitely strengthen the project's scope. Right now, the project can visualize any object defined in the Main.cpp vertices and edges vectors, but this can be fairly difficult to modify. I was considering a .json file loading system as well that would give me more control over the file format.
+
+Currently, I'm focusing on learning OpenGL to create a more robust and complete renderer using CMake. I'm hoping to create some interesting projects with this in the near future.
