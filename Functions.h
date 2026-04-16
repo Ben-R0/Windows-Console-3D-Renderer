@@ -12,3 +12,6 @@ Vector2 Project(const Vector3& v);
 std::vector<Vector3> DrawLine(const Vector3& vI, const Vector3& vF);
 
 std::pair<int, int> ToScreen(const Vector2& vNds);
+
+//ridiculous type lol
+std::pair<std::vector<Vector3>, std::vector<std::pair<int, int>>> buildSphere(int radialSamples, int rings);

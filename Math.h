@@ -1,6 +1,6 @@
 #pragma once
 #include <cmath>
-
+constexpr double pi = 3.14159265358979323846;
 
 template <int R, int C>
 struct Matrix {

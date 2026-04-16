@@ -12,30 +12,57 @@
 #include "Globals.h"
 #include "Math.h"
 
+Vector3 objectPosition = { 0.0, 0.5, 3.0 };
+
+//cube
 std::vector<Vector3> cube = {
-  {-1, -0.5,  1},
-  { 1, -0.5,  1},
-  { 1,  1.5,  1},
-  {-1,  1.5,  1},
-  {-1, -0.5,  3},
-  { 1, -0.5,  3},
-  { 1,  1.5,  3},
-  {-1,  1.5,  3},
+  {-1, -1,  -1.0},
+  { 1, -1,  -1.0},
+  { 1,  1,  -1.0},
+  {-1,  1,  -1.0},
+  {-1, -1,  1.0},
+  { 1, -1,  1.0},
+  { 1,  1,  1.0},
+  {-1,  1,  1.0},
 };
 
-std::vector<std::pair<int, int>> edges = {
+std::vector<std::pair<int, int>> cubeEdges = {
     {0,1},{1,2},{2,3},{3,0},  // bottom face
     {4,5},{5,6},{6,7},{7,4},  // top face
     {0,4},{1,5},{2,6},{3,7}   // vertical edges connecting top & bottom
 };
 
-double throttle = 0.0;
 
+//pyramid
+std::vector<Vector3> pyramid = {
+  {-1, -1,  -1},
+  {-1, -1,  1},
+  { 1, -1,  1},
+  { 1, -1,  -1},
+  {0,  1,  0}, //peak
+};
+
+std::vector<std::pair<int, int>> pyramidEdges = {
+    {0,1},{1,2},{2,3},{3,0},  // bottom face
+    {0,4},{1,4},{2,4},{3,4},   // vertical edges connecting top & bottom
+};
+
+
+
+
+double throttle = 0.0;
 
 wchar_t* screen = new wchar_t[nSCREEN_WIDTH * nSCREEN_HEIGHT];//wide char type
 HANDLE hConsole = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 DWORD dwBytesWritten = 0;
 
+
+
+
+int choice;
+double scale;
+std::vector<Vector3>& verts = cube;
+std::vector<std::pair<int, int>>& edges = cubeEdges;
 
 void Draw3D() {
     std::vector<Pixel> yBuffer(nSCREEN_HEIGHT, Pixel(1000.0, Color3(0, 0, 0)));
@@ -49,16 +76,16 @@ void Draw3D() {
     
     for (int i = 0; i < edges.size(); i++) {
        
-        Vector3 vI = cube[edges[i].first];
-        Vector3 vF = cube[edges[i].second];
+        Vector3 vI = verts[edges[i].first];
+        Vector3 vF = verts[edges[i].second];
         
         std::vector<Vector3> points = SampleEdge(vI, vF, 100);//points in world space
         //we need to take depth at each point before projecting it because projection loses depth
 
-        for (int i = 0; i<points.size(); i++) {
-            Pixel p(points[i].z, Color3(255, 255, 255));
+        for (int j = 0; j<points.size(); j++) {
+            Pixel p(points[j].z, Color3(255, 255, 255));
 
-            Vector2 vNds = Project(points[i]);
+            Vector2 vNds = Project(points[j]);
             
             if (vNds.x > 1 || vNds.y > 1 || vNds.x < -1 || vNds.y < -1) {
                 //std::cout << std::to_string(vNds.x) << " " << std::to_string(vNds.y) << std::endl;
@@ -129,11 +156,11 @@ void HandleInput() {
     }
 
     if (GetAsyncKeyState(VK_LSHIFT) & 0x8000) {
-        throttle += 0.05;
+        throttle += 0.025;
     }
 
     if (GetAsyncKeyState(VK_LCONTROL) & 0x8000) {
-        throttle -= 0.05;
+        throttle -= 0.025;
     }
 
     double camRight = cos(gCamera.rotation.x) * sin(gCamera.rotation.y);
@@ -147,15 +174,73 @@ void HandleInput() {
 
 int main()
 {
+    
+    std::cout << std::setfill('=') << std::setw(22) << "" << '\n' <<
+        "  WIREFRAME RENDERER  \n" <<
+        std::setfill('=') << std::setw(22) << "" << '\n' <<
+        "KEY          SHAPE \n" <<
+        "1(DEFAULT)   CUBE\n" <<
+        "2            PYRAMID\n" <<
+        "3            SPHERE\n\n" <<
+        
+        "ENTER SHAPE : ";
+
+
+    std::cin >> choice;
+    switch (choice) {
+    case 1:
+        verts = cube;
+        edges = cubeEdges;
+        break;
+
+    case 2:
+        verts = pyramid;
+        edges = pyramidEdges;
+        break;
+
+    case 3:
+         {//braces needed...because switch behaves like goto...says stack overflow
+        int radialSamples, rings;
+
+        std::cout << "\nSPHERE SELECTED...SPECIFY PARAMETERS (RADIAL SAMPLES & RINGS < 10 RECOMMENDED)\n\nENTER NO. OF RADIAL SAMPLES: ";
+        std::cin >> radialSamples;
+        std::cout << "\nENTER NO. OF RINGS: ";
+        std::cin >> rings;
+
+
+        std::pair<std::vector<Vector3>, std::vector<std::pair<int, int>>> spherePair = buildSphere(radialSamples, rings);
+        std::vector<Vector3> sphere = spherePair.first;
+        std::vector<std::pair<int, int>> sphereEdges = spherePair.second;
+
+
+
+        verts = sphere;
+        edges = sphereEdges;
+        break;
+        }
+
+    default:
+        verts = cube;
+        edges = cubeEdges;
+        break;
+    }
+
+    std::cout << "\nENTER SCALE MULTIPLIER (INTEGER): ";
+    std::cin >> scale;
+
+    for (int i = 0; i < verts.size(); i++) {
+        verts[i] = verts[i] * scale + objectPosition;
+    }
+
     while (true)
     {   
         HandleInput();
         Draw3D();
-        for (int i = 0; i < cube.size(); i++) {
-            Vector3 v = cube[i];
-            cube[i] = RotateV3(v, 'x', 0.1, Vector3(0, 0.5, 2));
-            v = cube[i];
-            cube[i] = RotateV3(v, 'z', -0.05, Vector3(0, 0.5, 2));
+        for (int i = 0; i < verts.size(); i++) {
+            Vector3 v = verts[i];
+            verts[i] = RotateV3(v, 'x', 0.1, objectPosition);
+            v = verts[i];
+            verts[i] = RotateV3(v, 'z', -0.05, objectPosition);
         }
         std::chrono::milliseconds delay = std::chrono::milliseconds(100);
         std::this_thread::sleep_for(delay);

@@ -103,3 +103,44 @@ std::vector<Vector3> DrawLine(const Vector3& vI, const Vector3& vF) {
 
 	return line;
 }
+
+//returns a pair of verts (lhs) and edges (rhs)... this implementation could be better id assume
+std::pair<std::vector<Vector3>, std::vector<std::pair<int, int>>> buildSphere(int radialSamples, int rings) {//actually makes rings+1
+	std::vector<Vector3> verts;
+	std::vector<std::pair<int, int>> edges;
+
+	//height of sphere will range from -1 to 1
+	for (int i = 0; i <= rings; i++) {
+		double y = -1.0 + 2.0 * (static_cast<double>(i) / rings);
+		double radius = sqrt(1.0 - y * y);
+		
+		for (int j = 0; j <= radialSamples; j++) {
+			double theta = (static_cast<double>(j) / radialSamples) * (2 * pi);//% times 2pi
+			double x = radius * cos(theta);
+			double z = radius * sin(theta);
+			
+			verts.push_back({x,y,z});
+
+			int currentIndex = i * (radialSamples + 1) + j;
+
+			//horizontal edges
+			if (j > 0) {
+				std::pair<int, int> edge = { currentIndex - 1, currentIndex };
+				edges.push_back(edge);
+			}
+			else {
+				std::pair<int, int> edge = { currentIndex, currentIndex + 1 };
+				edges.push_back(edge);
+			}
+
+			//vertical edges
+			if (i > 0) {
+				int prev = (i - 1) * (radialSamples + 1) + j;
+				std::pair<int, int> edge = { prev, currentIndex};
+				edges.push_back(edge);
+			}
+		}
+	}
+
+	return std::pair<std::vector<Vector3>, std::vector<std::pair<int, int>>> {verts, edges};
+}
