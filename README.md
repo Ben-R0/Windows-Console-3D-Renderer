@@ -59,7 +59,8 @@ Next, I implemented a shape selection menu for a cube, pyramid, and sphere shape
 
 <br>
 
-<img width="639" height="289" alt="image" src="https://github.com/user-attachments/assets/7574b655-9f15-4212-89ed-a7869992faa2" />
+<img width="646" height="332" alt="image" src="https://github.com/user-attachments/assets/0e843863-a70f-4299-aa9f-8e0afa06bab9" />
+
 
 *Customization Menu*
 
@@ -67,7 +68,7 @@ Next, I implemented a shape selection menu for a cube, pyramid, and sphere shape
 
 <img width="475" height="470" alt="image" src="https://github.com/user-attachments/assets/6a00fad5-5708-4612-954f-4ed7541cedc3" />
 
-*Example Sphere Render: 7 Radial Samples, 7 Rings, Scaled by 4x* 
+*Example Sphere Render: 7 Radial Samples, 7 Rings, 4x Scale, Lowered FOV* 
 
 <br>
 
